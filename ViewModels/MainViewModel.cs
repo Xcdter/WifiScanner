@@ -12,13 +12,28 @@ namespace WifiScanner.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private readonly WiFiService _wifiService;
+
         private ObservableCollection<WifiNetwork> _networks;
+
         public ObservableCollection<WifiNetwork> Networks
         {
             get => _networks;
             set
             {
                 _networks = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _bestNetwork;
+
+        public string BestNetwork
+        {
+            get => _bestNetwork;
+
+            set
+            {
+                _bestNetwork = value;
                 OnPropertyChanged();
             }
         }
@@ -36,9 +51,15 @@ namespace WifiScanner.ViewModels
         {
             var networks = await _wifiService.ScanAvailableNetworksAsync();
             Networks.Clear();
-            foreach (var network in networks)
+
+            if (networks.Count > 0)
             {
-                Networks.Add(network);
+                foreach (var network in networks.OrderByDescending(n => n.SignalStrength))
+                {
+                    Networks.Add(network);
+                }
+
+                BestNetwork = Networks[0].SSID;
             }
         }
 

@@ -7,11 +7,7 @@ namespace WifiScanner.Repository
 {
     public class WiFiDbContext
     {
-        private static readonly string ProjectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
-
-        private static readonly string DbPath = Path.Combine(ProjectPath, "WiFiNetworks.db");
-
-        private static readonly string ConnectionString = $"Data Source={DbPath}";
+        private const string ConnectionString = "Data Source=WiFiNetworks.db";
 
         public WiFiDbContext()
         {

@@ -8,17 +8,26 @@
     </Window.DataContext>
 
     <Grid>
-        <StackPanel>
-            <Button Content="Сканировать" Command="{Binding ScanCommand}" Width="100" Margin="10"/>
-            <Button Content="Сохранить" Command="{Binding SaveCommand}" Width="100" Margin="10"/>
-            <TextBox Text="{Binding BestNetwork}" Width="200" Margin="10"/>
-            <DataGrid ItemsSource="{Binding Networks}" AutoGenerateColumns="False" Margin="10" IsReadOnly="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0">
+            <Button Content="Сканировать" Command="{Binding ScanCommand}" Width="100" Margin="5"/>
+            <Button Content="Сохранить" Command="{Binding SaveCommand}" Width="100" Margin="5"/>
+            <TextBox Text="{Binding BestNetwork}" Width="200" Margin="5" IsReadOnly="True"/>
+        </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10" Grid.Row="1">
+            <DataGrid ItemsSource="{Binding Networks}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="SSID" Binding="{Binding SSID}" Width="*"/>
                     <DataGridTextColumn Header="Signal Strength (%)" Binding="{Binding SignalStrength}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
+
 

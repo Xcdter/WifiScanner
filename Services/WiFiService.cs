@@ -15,13 +15,13 @@ namespace WifiScanner.Services
             var access = await WiFiAdapter.RequestAccessAsync();
             if (access != WiFiAccessStatus.Allowed)
             {
-                throw new Exception("WiFi access denied.");
+                throw new UnauthorizedAccessException("WiFi access denied.");
             }
 
             var wifiAdapters = await WiFiAdapter.FindAllAdaptersAsync();
             if (wifiAdapters.Count == 0)
             {
-                throw new Exception("No WiFi adapters found on this device.");
+                throw new InvalidOperationException("No WiFi adapters found on this device.");
             }
 
             var adapter = wifiAdapters[0];
